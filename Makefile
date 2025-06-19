@@ -1,18 +1,26 @@
-.PHONY: help build test
+.PHONY: help build test clean
 
-help:
-# http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+# 빌드 아웃풋 디렉토리 설정
+BUILD_DIR := out
+OBJ_DIR := $(abspath $(BUILD_DIR)/obj)
+BIN_DIR := $(abspath $(BUILD_DIR)/bin)
+
+help: ## Show available targets
 	@grep -E '^[a-zA-Z0-9_%/-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build:
-build: ## Build executables
-	$(MAKE) -C src
+build: $(BUILD_DIR) ## Build all executables
+	$(MAKE) -C src OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR)
 
-test:
-test: ## Test rbtree implementation
-	$(MAKE) -C test test
-	
-clean:
-clean: ## Clear build environment
-	$(MAKE) -C src clean
-	$(MAKE) -C test clean
+test: $(BUILD_DIR) ## Run tests on rbtree implementation
+	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) test
+
+rebuild-test: clean $(BUILD_DIR) ## Clean and rebuild test-rbtree for debugging
+	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) all
+
+clean: ## Clean build environment
+	$(MAKE) -C src OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) clean
+	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) clean
+	rm -rf $(BUILD_DIR)
+
+$(BUILD_DIR):
+	mkdir -p $(OBJ_DIR) $(BIN_DIR)
