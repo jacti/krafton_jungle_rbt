@@ -30,7 +30,4 @@ int rbtree_erase(rbtree *, node_t *);
 
 int rbtree_to_array(const rbtree *, key_t *, const size_t);
 
-// visualize_rbtree
-void rbtree_visualize(rbtree *tree, const char *dotfile, const char *imgfile);
-
 #endif  // _RBTREE_H_

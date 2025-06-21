@@ -2,18 +2,23 @@
 
 #include <stdlib.h>
 
-#define NIL t->nil
+static node_t _nil;
+static const node_t *NIL = & _nil;
+static int _init = 0;
 
 rbtree *new_rbtree(void)
 {
   rbtree *t = (rbtree *)malloc(sizeof(rbtree));
   // NIL 정의
-  NIL = (node_t *)malloc(sizeof(node_t));
-  NIL->color = RBTREE_BLACK;
-  NIL->left = NIL;
-  NIL->right = NIL;
-  NIL->parent = NIL;
-  NIL->key = -1;
+  if(!_init){
+    _nil.color = RBTREE_BLACK;
+    _nil.left = NIL;
+    _nil.right = NIL;
+    _nil.parent = NIL;
+    _nil.key = -1;
+    _init = 1;
+  }
+  t->nil = NIL;
 
   // root에 nil 정의
   t->root = NIL;
@@ -34,7 +39,7 @@ static void _delete_rbtree(node_t *root, node_t *nil)
 void delete_rbtree(rbtree *t)
 {
   _delete_rbtree(t->root, NIL);
-  free(NIL);
+  // free(NIL);
   free(t);
 }
 
