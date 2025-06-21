@@ -23,10 +23,10 @@
       ]
     },
     {
-      "name": "Debug driver",
+      "name": "Visualize",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/out/bin/driver",
+      "program": "${workspaceFolder}/out/bin/visualize_rbtree",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
@@ -34,7 +34,7 @@
       "externalConsole": false,
       "MIMode": "gdb",
       "miDebuggerPath": "/usr/bin/gdb",
-      "preLaunchTask": "rebuild-driver",
+      "preLaunchTask": "visualize",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",

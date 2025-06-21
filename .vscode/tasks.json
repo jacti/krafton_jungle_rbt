@@ -12,9 +12,9 @@
       "problemMatcher": []
     },
     {
-      "label": "rebuild-driver",
+      "label": "visualize",
       "type": "shell",
-      "command": "make rebuild-src",
+      "command": "make visualize",
       "group": {
         "kind": "build",
         "isDefault": true

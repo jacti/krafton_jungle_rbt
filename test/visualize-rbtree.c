@@ -10,45 +10,47 @@ static void export_node(FILE *fp, node_t *n, node_t *nil);
 void rbtree_visualize(rbtree *tree, const char *dotfile, const char *imgfile);
 
 
-/*
- ______    ____       ____        ______   
-/\__  _\  /\  _`\    /\  _`\     /\__  _\  
-\/_/\ \/  \ \ \L\_\  \ \,\L\_\   \/_/\ \/  
-   \ \ \   \ \  _\L   \/_\__ \      \ \ \  
-    \ \ \   \ \ \L\ \   /\ \L\ \     \ \ \ 
-     \ \_\   \ \____/   \ `\____\     \ \_\
-      \/_/    \/___/     \/_____/      \/_/
-                                           
-main에 테스트 함수 작성
-*/
+
 int main()
 {
+    /*
+     ______    ____       ____        ______   
+    /\__  _\  /\  _`\    /\  _`\     /\__  _\  
+    \/_/\ \/  \ \ \L\_\  \ \,\L\_\   \/_/\ \/  
+       \ \ \   \ \  _\L   \/_\__ \      \ \ \  
+        \ \ \   \ \ \L\ \   /\ \L\ \     \ \ \ 
+         \ \_\   \ \____/   \ `\____\     \ \_\
+          \/_/    \/___/     \/_____/      \/_/
+                                           
+                여기에 시각화 코드 작성
+    */
 
+    // 예제
     rbtree *t = new_rbtree();
     char dot_file_buffer[100];  //dot file 이름
     char img_file_buffer[100];  //img file 이름
 
     //0부터 10까지 원소를 추가하는 테스트
-    for(int i=0; i<10;i++){
+    for(int i=0; i<5;i++){
         rbtree_insert(t,i);
         //파일 이름 for 문으로 생성
-        sprintf(dot_file_buffer, "out/result/serial_d_%d.dot",i);
-        sprintf(img_file_buffer, "out/result/serial_i_%d.png",i);
+        sprintf(dot_file_buffer, "out/dots/serial_d_%d.dot",i);
+        sprintf(img_file_buffer, "out/imgs/serial_i_%d.png",i);
         rbtree_visualize(t,dot_file_buffer,img_file_buffer);
     }
 
+    delete_rbtree(t);
+    t = new_rbtree();
     //10개의 랜덤 원소를 넣는 테스트
-    for(int i=0; i<10;i++){
+    for(int i=0; i<5;i++){
         rbtree_insert(t,rand()%100);
         //파일 이름 for 문으로 생성
-        sprintf(dot_file_buffer, "out/result/rand_d_%d.dot",i);
-        sprintf(img_file_buffer, "out/result/rand_i_%d.png",i);
+        sprintf(dot_file_buffer, "out/dots/rand_%d.dot",i);
+        sprintf(img_file_buffer, "out/imgs/rand_%d.png",i);
         rbtree_visualize(t,dot_file_buffer,img_file_buffer);
     }
 
 }
-
-
 
 
 // 디렉터리 확인 및 생성 (mkdir -p 기능)
