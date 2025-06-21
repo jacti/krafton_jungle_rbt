@@ -10,6 +10,16 @@
         "isDefault": true
       },
       "problemMatcher": []
+    },
+    {
+      "label": "rebuild-driver",
+      "type": "shell",
+      "command": "make rebuild-src",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
     }
   ]
 }

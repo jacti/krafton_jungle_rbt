@@ -17,6 +17,9 @@ test: $(BUILD_DIR) ## Run tests on rbtree implementation
 rebuild-test: clean $(BUILD_DIR) ## Clean and rebuild test-rbtree for debugging
 	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) all
 
+rebuild-src: clean $(BUILD_DIR)
+	$(MAKE) -C src OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) all
+
 clean: ## Clean build environment
 	$(MAKE) -C src OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) clean
 	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) clean

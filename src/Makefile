@@ -5,7 +5,7 @@ SRC_DIR = .
 OBJ_DIR ?= ../out/obj
 BIN_DIR ?= ../out/bin
 
-OBJS = $(OBJ_DIR)/driver.o $(OBJ_DIR)/rbtree.o
+OBJS = $(OBJ_DIR)/driver.o $(OBJ_DIR)/rbtree.o $(OBJ_DIR)/visualize_rbtree.o
 TARGET = $(BIN_DIR)/driver
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

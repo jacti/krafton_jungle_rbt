@@ -1,7 +1,7 @@
 .PHONY: all test clean
 
 CC = gcc
-CFLAGS = -I ../src -Wall -g
+CFLAGS = -I ../src -Wall -g -DSENTINEL
 
 OBJ_DIR ?= ../out/obj
 BIN_DIR ?= ../out/bin
