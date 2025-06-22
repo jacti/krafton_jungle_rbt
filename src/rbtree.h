@@ -30,4 +30,7 @@ int rbtree_erase(rbtree *, node_t *);
 
 int rbtree_to_array(const rbtree *, key_t *, const size_t);
 
+// custom function
+// void _rotate(node_t *parent, direction_t isRight);
+
 #endif  // _RBTREE_H_
