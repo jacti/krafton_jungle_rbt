@@ -14,7 +14,5 @@ void print_tree_vertical(const node_t *node, const node_t *nil);
 /* 트리 가로로 출력 */
 void print_tree_horizontal(const node_t *node, const node_t *nil, int space);
 
-/* 디렉터리 생성 (mkdir -p 동작) */
-static void ensure_dir(const char *filename);
 
 #endif

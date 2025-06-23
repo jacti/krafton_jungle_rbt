@@ -1,30 +1,34 @@
 .PHONY: help build test clean
 
 # 빌드 아웃풋 디렉토리 설정
-BUILD_DIR := out
-OBJ_DIR := $(abspath $(BUILD_DIR)/obj)
-BIN_DIR := $(abspath $(BUILD_DIR)/bin)
+OUT_DIR := $(abspath $(CURDIR)/out)
 SRC_DIR := $(CURDIR)/src
+OBJ_DIR   := $(OUT_DIR)/obj
+BIN_DIR   := $(OUT_DIR)/bin
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z0-9_%/-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build: $(BUILD_DIR) ## Build all executables
-	$(MAKE) -C src OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR)
+build: $(OUT_DIR) ## Build all executables
+	$(MAKE) -C src OUT_DIR=$(OUT_DIR)
 
-test: $(BUILD_DIR) ## Run tests on rbtree implementation
-	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) test
+build-%: ## Only Build %
+	@echo "→ Build $*"
+	$(MAKE) -C test OUT_DIR=$(OUT_DIR) SRC_DIR=$(SRC_DIR) $*
 
-rebuild-test: clean $(BUILD_DIR) ## Clean and rebuild test-rbtree for debugging
-	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) all
+test: $(OUT_DIR) ## Run tests on rbtree implementation
+	$(MAKE) -C test OUT_DIR=$(OUT_DIR) SRC_DIR=$(SRC_DIR) run-test check-test
 
-visualize: clean $(BUILD_DIR)
-	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) SRC_DIR=$(SRC_DIR) visualize
+rebuild-test: clean $(OUT_DIR) ## Clean and rebuild test-rbtree for debugging
+	$(MAKE) -C test OUT_DIR=$(OUT_DIR) all
+
+visualize: $(OUT_DIR) ## Visualize RBTree -> check test/visualize-main.c
+	$(MAKE) -C test OUT_DIR=$(OUT_DIR) SRC_DIR=$(SRC_DIR) run-visualize
 
 clean: ## Clean build environment
-	$(MAKE) -C src OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) clean
-	$(MAKE) -C test OBJ_DIR=$(OBJ_DIR) BIN_DIR=$(BIN_DIR) clean
-	rm -rf $(BUILD_DIR)
+	$(MAKE) -C src OUT_DIR=$(OUT_DIR) clean
+	$(MAKE) -C test OUT_DIR=$(OUT_DIR) clean
+	rm -rf $(OUT_DIR)
 
-$(BUILD_DIR):
-	mkdir -p $(OBJ_DIR) $(BIN_DIR)
+$(OUT_DIR):
+	@mkdir -p $(OBJ_DIR) $(BIN_DIR)

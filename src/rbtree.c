@@ -136,7 +136,7 @@ node_t *rbtree_insert(rbtree *t, const key_t key)
         parentDirection = (parent->parent->right == parent);
         uncle = _getChild(parent->parent, !parentDirection);
 
-        // !CASE 1 : uncle이 red일 경우 -> grand parent ->red; parent & uncle -> black;
+        // CASE 1 : uncle이 red일 경우 -> grand parent ->red; parent & uncle -> black;
         if (uncle->color == RBTREE_RED)
         {
             parent->color = RBTREE_BLACK;
@@ -149,13 +149,13 @@ node_t *rbtree_insert(rbtree *t, const key_t key)
         curDirection = (parent->right == cur);
         node_t *grandParent = parent->parent;
 
-        // !CASE 2 : parent direction 과 cur direction이 다른 경우 -> 다이아몬드 모양 -> 쭉 펴줌
+        // CASE 2 : parent direction 과 cur direction이 다른 경우 -> 다이아몬드 모양 -> 쭉 펴줌
         if (curDirection != parentDirection)
         {
             _rotate(parent, !curDirection);
         }
 
-        // !CASE 3 : parent direction 과 cur direction이 같을 경우 -> 한칸 내리고 색칠
+        // CASE 3 : parent direction 과 cur direction이 같을 경우 -> 한칸 내리고 색칠
         _rotate(grandParent, !parentDirection);
         grandParent->color = RBTREE_RED;
         grandParent->parent->color = RBTREE_BLACK;
@@ -231,11 +231,6 @@ static void _transplant(rbtree *t, node_t *u, node_t *v)
     }
 }
 
-// 트리 색 수정
-static void _rbtree_fix_up(rbtree *t, node_t *x)
-{
-}
-
 int rbtree_erase(rbtree *t, node_t *p)
 {
     color_t origin_color = p->color;
@@ -276,7 +271,7 @@ int rbtree_erase(rbtree *t, node_t *p)
 
     if (origin_color == RBTREE_BLACK)
     {
-        _rbtree_fix_up(t, modify);
+        // _rbtree_fix_up(t, modify);
     }
 
     free(p);
